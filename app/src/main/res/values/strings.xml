@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Miejsce</string>
+    <string name="prev">\u003C</string>
+    <string name="next">\u003E</string>
+    <string name="miasto">krakow</string>
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="distance">1</string>
+</resources>

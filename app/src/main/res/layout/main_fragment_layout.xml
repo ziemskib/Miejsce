@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.example.bartek.miejsce.MainFragment">
+    <ViewFlipper
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:id="@+id/viewFlipper">
+        <ImageView
+            android:clickable="true"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView"
+            android:src="@drawable/forum"/>
+        <ImageView
+            android:clickable="true"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView2"
+            android:src="@drawable/restauracja_midova"/>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView3"
+            android:src="@drawable/forum"/>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView4"
+            android:src="@drawable/photo3"/>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView5"
+            android:src="@drawable/photo5"/>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView6"
+            android:src="@drawable/photo7"/>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView7"
+            android:src="@drawable/photo7"/>
+    </ViewFlipper>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/miasto"
+        android:textSize="30dp"
+        android:layout_alignParentRight="true"
+        android:paddingRight="5dp"
+        android:id="@+id/city"
+        android:textColor="#ffffff"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false" />
+
+    <!--
+        przycisk next na zdjeciach
+         ustalic jak ma wygladac
+    -->
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:text="@string/next"
+        android:textSize="40sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:textColor="#ffffff" />
+
+    <!-- przycisk wstecz na zdjeciach -->
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:text="@string/prev"
+        android:textSize="40sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/next"
+        android:background="@android:color/transparent"
+        android:textColor="#ffffff" />
+
+
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical"
+        android:layout_below="@id/viewFlipper">
+
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+
+            <!-- 1. cattegory button -->
+            <ImageButton
+
+                android:src="@drawable/kat1_button"
+                android:id="@+id/kat1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"/>
+
+            <!-- 2. cattegory button -->
+            <ImageButton
+                android:src="@drawable/kat1_button"
+                android:id="@+id/kat2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+
+
+            <!-- 3. cattegory button -->
+            <ImageButton
+                android:src="@drawable/kat1_button"
+                android:id="@+id/kat3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"/>
+
+            <!-- 4. cattegory button -->
+            <ImageButton
+                android:src="@drawable/kat1_button"
+                android:id="@+id/kat4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

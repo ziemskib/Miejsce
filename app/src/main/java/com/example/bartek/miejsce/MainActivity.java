@@ -1,5 +1,7 @@
 package com.example.bartek.miejsce;
 
+//main activity -> obsluguje przesuwanie glownych ekranow
+
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -13,7 +15,7 @@ import android.support.v4.view.ViewPager;
  */
 public class MainActivity extends FragmentActivity {
     /**
-     * The number of pages (wizard steps) to show in this demo.
+     * Ilosc ekranow do przesuwania
      */
     private static final int NUM_PAGES = 3;
 
@@ -38,9 +40,11 @@ public class MainActivity extends FragmentActivity {
         mPager=(ViewPager) findViewById(R.id.pager);
         mPagerAdapter=new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        //startujemy od ekranu 1
         mPager.setCurrentItem(1);
     }
 
+    //po przycisnieciu przycisku "powrot"
     @Override
     public void onBackPressed(){
         if(mPager.getCurrentItem()==1){
@@ -70,14 +74,14 @@ public class MainActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position){
 
-            if(position==0) return new RankingFragment();
-            else if (position==1)  return new MainFragment();
-            else return new RankingFragment();
+            if(position==0) return new RankingFragment();   //ranking po lewej
+            else if (position==1)  return new MainFragment();   //MainFragment jako startowy
+            else return new RankingFragment();  //do ustawienia
         }
 
         @Override
         public int getCount(){
             return NUM_PAGES;
-        }
+        }   //zwraca ilosc ekranow
     }
 }

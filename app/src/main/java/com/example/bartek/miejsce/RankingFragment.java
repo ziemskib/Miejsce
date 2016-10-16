@@ -20,6 +20,9 @@ import java.util.List;
 /**
  * Created by Bartek on 29.07.2016.
  */
+
+//obsluguje ekran z rankingiem
+
 public class RankingFragment extends Fragment {
 
     private FragmentActivity fa;
@@ -40,7 +43,7 @@ public class RankingFragment extends Fragment {
         LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ftView =li.inflate(R.layout.list_footer_view,null);
         mHandler = new MyHandler();
-        ListItem_data = new ArrayList<>();
+        ListItem_data = new ArrayList<>();  //lista z danymi do listy
 
         ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fsdaas", "1km"));
         ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja,"fasdfsa", "0.5km"));
@@ -82,6 +85,7 @@ public class RankingFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.Lista);
         listView.setAdapter(adapter);
 
+        //po kliknieciu w element listy
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
@@ -90,6 +94,8 @@ public class RankingFragment extends Fragment {
             }
         });
 
+
+        //przy scrollowaniu
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

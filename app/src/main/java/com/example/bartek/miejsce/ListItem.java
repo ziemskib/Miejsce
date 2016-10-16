@@ -3,6 +3,8 @@ package com.example.bartek.miejsce;
 /**
  * Created by Bartek on 29.07.2016.
  */
+
+//pojedynczy element listy rankingowej
 public class ListItem {
 
     public int icon;

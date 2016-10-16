@@ -20,16 +20,22 @@ import android.widget.ViewFlipper;
 /**
  * Created by Bartek on 26.07.2016.
  */
+
+/**
+ * obsluguje glowny ekran
+*/
 public class MainFragment extends Fragment {
 
     private LinearLayout ll;
     private FragmentActivity fa;
 
     ViewFlipper viewFlipper;
+    //przyciski do przesuwania slajdow/zdjec
     Button next;
     Button previous;
     Context context;
-    TextView city;
+    TextView city;  //napis: miasto
+    //animacje do przesuwania slajdow/zdjec
     private Animation slideLeftIn;
     private Animation slideLeftOut;
     private Animation slideRightIn;
@@ -54,6 +60,7 @@ public class MainFragment extends Fragment {
         //Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/MyriadProRegular");
         //city.setTypeface(font);
 
+        //po kliknieciu next pokaz kolejne zdjecie
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

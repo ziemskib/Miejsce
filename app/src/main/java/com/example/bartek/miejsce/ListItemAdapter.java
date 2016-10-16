@@ -15,6 +15,9 @@ import java.util.List;
 /**
  * Created by Bartek on 29.07.2016.
  */
+
+//obsluguje liste rankingowa
+
 public class ListItemAdapter extends ArrayAdapter<ListItem>{
     Context context;
     int layoutResourceId;

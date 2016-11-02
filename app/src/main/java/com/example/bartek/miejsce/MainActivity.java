@@ -74,7 +74,7 @@ public class MainActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position){
 
-            if(position==0) return new RankingFragment();   //ranking po lewej
+            if(position==0) return new RankingFragment_with_filters();   //ranking po lewej
             else if (position==1)  return new MainFragment();   //MainFragment jako startowy
             else return new RankingFragment();  //do ustawienia
         }

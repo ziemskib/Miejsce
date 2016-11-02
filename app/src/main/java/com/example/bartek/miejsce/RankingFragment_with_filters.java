@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,23 +26,34 @@ import java.util.List;
 
 //obsluguje ekran z rankingiem
 
-public class RankingFragment extends Fragment {
+public class RankingFragment_with_filters extends Fragment {
 
     private FragmentActivity fa;
-    private ListView listView;
     Context context;
+
+    CheckBox cb1,cb2,cb3;
+    int key=0;
+
+
+///////////////
     private List<ListItem> ListItem_data;
     public Handler mHandler;
     public View ftView;
     public boolean isLoading = false;
     private ListItemAdapter adapter;
-   // public int currentId = 10;
+
+    private ListView listView;
+    ////////////////
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fa = super.getActivity();
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list_with_filters, container, false);
+  //      ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list, container, false);
+
         context = container.getContext();
 
+/***************************/
         LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ftView =li.inflate(R.layout.list_footer_view,null);
         mHandler = new MyHandler();
@@ -57,29 +71,6 @@ public class RankingFragment extends Fragment {
         ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "afsad", "4km"));
 
 
-
-        /* ListItem ListItem_data[] = new ListItem[] {
-
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fsdaas", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja,"fasdfsa", "0.5km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fadsfas", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "adsfsdfas", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "afdf", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "asdfs", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "asdf", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "dafsdfas", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "asdfdfasd", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "asdf", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "dsaffasd", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "adsfasdf", "1km"),
-                new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "dsafads", "1km"),
-        };
-
-
-
-        ListItemAdapter adapter = new ListItemAdapter(context,
-                R.layout.list_element, ListItem_data);
-*/
         adapter = new ListItemAdapter(context,R.layout.list_element,ListItem_data);
 
 
@@ -115,8 +106,39 @@ public class RankingFragment extends Fragment {
 
             }
         });
+
+
+
+
+/**************************************/
+
+
+
+        final Transparent popup = (Transparent) rootView.findViewById(R.id.popup_window);
+        popup.setVisibility(View.GONE);
+
+        final ImageButton btn=(ImageButton) rootView.findViewById(R.id.filtr_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if(key==0){
+                    key=1;
+                    popup.setVisibility(View.VISIBLE);
+                    //	btn.setBackgroundResource(R.drawable.ic_launcher);
+                }
+                else if(key==1){
+                    key=0;
+                    popup.setVisibility(View.GONE);
+                    //	btn.setBackgroundResource(R.drawable.ic_action_search);
+                }
+            }
+        });
+
+
+
         return rootView;
-    }
+        }
 
     public class MyHandler extends Handler{
         @Override

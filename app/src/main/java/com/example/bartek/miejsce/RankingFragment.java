@@ -2,15 +2,17 @@ package com.example.bartek.miejsce;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Message;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,7 +35,10 @@ public class RankingFragment extends Fragment {
     public View ftView;
     public boolean isLoading = false;
     private ListItemAdapter adapter;
-   // public int currentId = 10;
+
+    private AlertDialog mDialog; //do wyswietlania kategorii/filtrow
+
+    // public int currentId = 10;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fa = super.getActivity();
@@ -45,16 +50,16 @@ public class RankingFragment extends Fragment {
         mHandler = new MyHandler();
         ListItem_data = new ArrayList<>();  //lista z danymi do listy
 
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fsdaas", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja,"fasdfsa", "0.5km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fadsfas", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "adsfsdfas", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "afdf", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "dafsdfas", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fsdaas", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "asdf", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "fsdaas", "1km"));
-        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "afsad", "4km"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal,"dfsa", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, "fasdfsa", "0.5km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, "fadsfas", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, "adsfsdfas", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, "afdf", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal, "dafsdfas", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal,  "fsdaas", "1km","http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal,  "asdf", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal,  "fsdaas", "1km", "http://i.imgur.com/J34v6G3.jpg"));
+        ListItem_data.add(new ListItem(R.drawable.kat1_button_normal,  "afsad", "4km", "http://i.imgur.com/J34v6G3.jpg"));
 
 
 
@@ -115,6 +120,18 @@ public class RankingFragment extends Fragment {
 
             }
         });
+
+        //Obsluga przycisku filtrow
+        final ImageButton btn=(ImageButton) rootView.findViewById(R.id.filtr_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+            }
+        });
+
+
         return rootView;
     }
 
@@ -142,11 +159,11 @@ public class RankingFragment extends Fragment {
     private ArrayList<ListItem> getMoreData(){
         ArrayList<ListItem> lst = new ArrayList<>();
         //get new data
-        lst.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "nowy1", "1km"));
-        lst.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja,"nowy2", "0.5km"));
-        lst.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "nowy3", "1km"));
-        lst.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.restauracja_midova, "nowy4", "1km"));
-        lst.add(new ListItem(R.drawable.kat1_button_normal, R.drawable.forum, "nowy5", "1km"));
+        lst.add(new ListItem(R.drawable.kat1_button_normal,"nowy1", "1km","http://i.imgur.com/J34v6G3.jpg"));
+        lst.add(new ListItem(R.drawable.kat1_button_normal, "nowy2", "0.5km", "http://i.imgur.com/J34v6G3.jpg"));
+        lst.add(new ListItem(R.drawable.kat1_button_normal, "nowy3", "1km","http://i.imgur.com/J34v6G3.jpg"));
+        lst.add(new ListItem(R.drawable.kat1_button_normal, "nowy4", "1km","http://i.imgur.com/J34v6G3.jpg"));
+        lst.add(new ListItem(R.drawable.kat1_button_normal, "nowy5", "1km","http://i.imgur.com/J34v6G3.jpg"));
         return lst;
     }
 

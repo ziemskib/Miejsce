@@ -2,18 +2,19 @@ package com.example.bartek.miejsce;
 
 //main activity -> obsluguje przesuwanie glownych ekranow
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
+
 /**
  * Created by Bartek on 18.07.2016.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity{
     /**
      * Ilosc ekranow do przesuwania
      */
@@ -23,25 +24,30 @@ public class MainActivity extends FragmentActivity {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-
+    public String city = "krakow";
     private ViewPager mPager;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
+    double userLatitude =-1.0;
+    double userLongitude = -1.0;
+
 
     private PagerAdapter mPagerAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Instantiate a ViewPager and a PagerAdapter
-        mPager=(ViewPager) findViewById(R.id.pager);
-        mPagerAdapter=new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         //startujemy od ekranu 1
         mPager.setCurrentItem(1);
+
+
     }
 
     //po przycisnieciu przycisku "powrot"
@@ -74,9 +80,9 @@ public class MainActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position){
 
-            if(position==0) return new RankingFragment_with_filters_and_php();   //ranking po lewej
+            if(position==0) return new RankingFragment();   //ranking po lewej
             else if (position==1)  return new MainFragment();   //MainFragment jako startowy
-            else return new RankingFragment();  //do ustawienia
+            else return new RankingFragment_with_filters();  //do ustawienia
         }
 
         @Override
@@ -84,4 +90,5 @@ public class MainActivity extends FragmentActivity {
             return NUM_PAGES;
         }   //zwraca ilosc ekranow
     }
+
 }

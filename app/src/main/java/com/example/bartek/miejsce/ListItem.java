@@ -10,17 +10,17 @@ public class ListItem {
     public int icon;
     public String title;
     public String distance;
-    public int background_image;
+    public String backgroungImageURL;
     public ListItem(){
 
     }
 
-    public ListItem(int icon, int background_image, String title, String distance) {
-
+    public ListItem(int icon, String title, String distance, String backgroungImageURL) {
         this.icon = icon;
         this.title = title;
         this.distance = distance;
-        this.background_image = background_image;
-
+        this.backgroungImageURL = backgroungImageURL;
     }
+
+
 }

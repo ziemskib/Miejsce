@@ -2,10 +2,8 @@ package com.example.bartek.miejsce;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,9 +62,13 @@ public class MainFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 viewFlipper.setInAnimation(slideLeftIn);
                 viewFlipper.setOutAnimation(slideLeftOut);
                 viewFlipper.showNext();
+                next.setEnabled(false);
+                previous.setEnabled(false);
+
             }
         });
         previous.setOnClickListener(new View.OnClickListener() {
@@ -75,11 +77,45 @@ public class MainFragment extends Fragment {
                 viewFlipper.setInAnimation(slideRightIn);
                 viewFlipper.setOutAnimation(slideRightOut);
                 viewFlipper.showPrevious();
+                previous.setEnabled(false);
+                next.setEnabled(false);
             }
         });
+
+        //Just to disable buttons during sliding pictures
+        slideLeftOut.setAnimationListener(new Animation.AnimationListener(){
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                next.setEnabled(true);
+                previous.setEnabled(true);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        slideRightOut.setAnimationListener(new Animation.AnimationListener(){
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                next.setEnabled(true);
+                previous.setEnabled(true);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+
         return rootView;
 
-
-        // return ll;
     }
 }

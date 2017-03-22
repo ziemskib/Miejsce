@@ -5,5 +5,6 @@
     <string name="miasto">krakow</string>
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="distance">1</string>
-    <string name="google_api_key_maps">AIzaSyBTkizE-ekjhRDCYJnIc93lcG0_MC6WFgU</string>
+    <string name="google_api_key_maps_old">AIzaSyBTkizE-ekjhRDCYJnIc93lcG0_MC6WFgU</string>
+    <string name="google_api_key_maps">AIzaSyDK9sEusZ3uKVSrI2_DbJ1FySCe9LXcYvE</string>
 </resources>

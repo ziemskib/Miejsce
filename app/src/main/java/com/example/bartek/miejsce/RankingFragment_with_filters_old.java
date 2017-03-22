@@ -13,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.bartek.miejsce.MyLocation.LocationResult;
 import com.google.firebase.database.DataSnapshot;
@@ -31,15 +34,18 @@ import java.util.List;
  * Created by Bartek on 29.07.2016.
  */
 
-//List of places screen Fragment
-public class RankingFragment_with_filters extends Fragment {
+//obsluguje ekran z rankingiem
+
+public class RankingFragment_with_filters_old extends Fragment {
 
     private FragmentActivity fa;
     Context context;
 
     ImageButton map_button;
+    CheckBox cb1, cb2, cb3;
+    int key = 0;
     //describes how many elements app should load
-    int loadingStep = 7;
+    int loadingStep = 5;
     ///////////////
     private List<ListItem> ListItem_data;
     public Handler mHandler;
@@ -57,11 +63,17 @@ public class RankingFragment_with_filters extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fa = super.getActivity();
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list_with_filters_old, container, false);
+        //      ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list, container, false);
+
         context = container.getContext();
         mainActivity = (MainActivity) getActivity();
+        //Filtr list
+        final Transparent popup = (Transparent) rootView.findViewById(R.id.popup_window);
+        popup.setVisibility(View.GONE);
 
         map_button = (ImageButton) rootView.findViewById(R.id.map_button);
+
         map_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,10 +82,12 @@ public class RankingFragment_with_filters extends Fragment {
             }
         });
 
+/***************************/
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ftView = li.inflate(R.layout.list_footer_view, null);
         mHandler = new MyHandler();
         ListItem_data = new ArrayList<>();  //lista z danymi do listy
+
 
         LocationResult locationResult = new LocationResult(){
             @Override
@@ -85,6 +99,8 @@ public class RankingFragment_with_filters extends Fragment {
         };
         MyLocation myLocation = new MyLocation(context, mainActivity);
         myLocation.getLocation(context, locationResult);
+        //final double userLatitude = 57.037638;
+        //final double userLongitude = 9.9336;
 
         adapter = new ListItemAdapter(context, R.layout.list_element, ListItem_data);
 
@@ -101,6 +117,7 @@ public class RankingFragment_with_filters extends Fragment {
                 //Search more data
                 final ArrayList<ListItem> lstResult = new ArrayList<ListItem>();
                 //Send the result to Handle
+                int num = 1;
                 int count = (int) dataSnapshot.getChildrenCount();
                 Place temp;
                 for (int i = 1; i <= count; i++) {
@@ -150,6 +167,21 @@ public class RankingFragment_with_filters extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        //list element Click Action
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Hide filtr list if is visible
+                if (key == 1) {
+                    key = 0;
+                    popup.setVisibility(View.GONE);
+                } else {
+                    //do sth
+                    Toast.makeText(context, "Clicked id =" + view.getTag(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         //during scrolling
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -167,14 +199,21 @@ public class RankingFragment_with_filters extends Fragment {
                 }
             }
         });
-
+/**************************************/
         final ImageButton btn = (ImageButton) rootView.findViewById(R.id.filtr_button);
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                //On filtr button click
-                startActivity(new Intent(context,Pop.class));
+                if (key == 0) {
+                    key = 1;
+                    popup.setVisibility(View.VISIBLE);
+                    //	btn.setBackgroundResource(R.drawable.ic_launcher);
+                } else if (key == 1) {
+                    key = 0;
+                    popup.setVisibility(View.GONE);
+                    //	btn.setBackgroundResource(R.drawable.ic_action_search);
+                }
             }
         });
         return rootView;
@@ -200,6 +239,7 @@ public class RankingFragment_with_filters extends Fragment {
             }
         }
     }
+
     private ArrayList<ListItem> getMoreData() {
         final ArrayList<ListItem> lst = new ArrayList<>();
         //get new data

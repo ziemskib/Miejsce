@@ -15,4 +15,9 @@
         <item name="android:alpha">0.7</item>
         <item name="android:scaleType">fitXY</item>
     </style>
+
+    <style name="AppTheme.FiltrWindowTheme">
+        <item name = "android:windowIsTranslucent">true</item>
+        <item name = "android:windowCloseOnTouchOutside">true</item>
+    </style>
 </resources>

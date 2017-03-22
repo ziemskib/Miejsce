@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" >
-
     </ListView>
+
     <com.example.bartek.miejsce.Transparent
         android:id="@+id/popup_window"
         android:layout_marginTop="50dp"

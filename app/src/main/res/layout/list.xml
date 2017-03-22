@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- layput z lista rankingowa -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:name="com.example.miejsce.RankingFragment">
-    <!-- android:background="#330066" -->
+
 
 
     <ImageButton
@@ -25,10 +24,10 @@
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"/>
 
-    <ImageButton
 
+    <ImageButton
         android:src="@drawable/map_button"
-        android:id="@+id/kat1"
+        android:id="@+id/map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -49,8 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" >
-
     </ListView>
-
 
 </RelativeLayout>

@@ -40,15 +40,14 @@ public class RankingFragment_with_filters extends Fragment {
     ImageButton map_button;
     //describes how many elements app should load
     int loadingStep = 7;
-    ///////////////
     private List<ListItem> ListItem_data;
     public Handler mHandler;
     public View ftView;
     public boolean isLoading = false;
-    private ListItemAdapter adapter;
 
     public MainActivity mainActivity;
     private ListView listView;
+    private ListItemAdapter adapter;
 
     final List<Place> places = new ArrayList<Place>();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -140,6 +139,7 @@ public class RankingFragment_with_filters extends Fragment {
                         Message msg = mHandler.obtainMessage(1, lstResult);
                         mHandler.sendMessage(msg);
                         firstLoaded = true;
+                        mainActivity.removeLoadingScreen();
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
  */
 public class MainActivity extends FragmentActivity{
 
-
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1000;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1001;
     //Number of sliding screens
@@ -48,8 +47,6 @@ public class MainActivity extends FragmentActivity{
         mPager.setCurrentItem(1);
         //Switch off paging for loading data
         mPager.setPagingEnabled(false);
-        //move this function calling to place where everything is loaded
-        removeLoadingScreen();
     }
 
     //Back button action
@@ -121,7 +118,7 @@ public class MainActivity extends FragmentActivity{
         }
     }
     //Enables sliding pages and changes foreground to transparent
-    private void removeLoadingScreen(){
+    public void removeLoadingScreen(){
         FrameLayout layout= (FrameLayout) findViewById(R.id.pager_layout);
         ((FrameLayout) layout).setForeground(new ColorDrawable(Color.TRANSPARENT));
         mPager.setPagingEnabled(true);

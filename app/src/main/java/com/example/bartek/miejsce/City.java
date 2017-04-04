@@ -4,24 +4,20 @@ package com.example.bartek.miejsce;
  * Created by Bartek on 16.03.2017.
  */
 
-public class Place implements Comparable<Place>{
+public class City implements Comparable<City>{
     private String name;
     private double latitude;
     private double longitude;
     private double distance;
     private int id;
-    private String backgroundImage;
-    private boolean main;
 
-    public Place(){}
+    public City(){}
 
-    public Place(String name, double latitude, double longitude, int id, String backgroundImage, boolean main){
+    public City(String name, double latitude, double longitude, int id){
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.id = id;
-        this.backgroundImage = backgroundImage;
-        this.main = main;
     }
 
     public void setName(String newName){
@@ -45,25 +41,6 @@ public class Place implements Comparable<Place>{
     public int getId(){return id;}
     //public void setDistance(double newDistance){distance = newDistance;}
     public double getDistance(){return distance;}
-    public void setBackgroundImage(String newBackgroundImage){backgroundImage = newBackgroundImage;}
-    public String getBackgroundImage(){return backgroundImage;}
-    public boolean getMain(){return main;}
-    /*public void countDistance(double user_latitude, double user_longitude) {
-        double a = Math.abs(user_latitude-latitude);
-        double b = Math.abs(user_longitude-longitude);
-        this.distance = Math.sqrt(a*a+b*b)*111.32;
-    }*/
-
-    /**
-     * Calculate distance between two points in latitude and longitude taking
-     * into account height difference. If you are not interested in height
-     * difference pass 0.0. Uses Haversine method as its base.
-     *
-     * lat1, lon1 Start point lat2, lon2 End point el1 Start altitude in meters
-     * el2 End altitude in meters
-     * @returns Distance in Meters
-     * I assume hight equals 0
-     */
     public void countDistance(double user_latitude, double user_longitude) {
         if(user_latitude==-1.0 || user_longitude==-1.0){
             distance=-1.0;
@@ -80,10 +57,8 @@ public class Place implements Comparable<Place>{
         distance = Math.pow(distance, 2);
         this.distance= Math.sqrt(distance);
     }
-
-
     @Override
-    public int compareTo(Place another) {
+    public int compareTo(City another) {
         if(this.distance<another.distance)
             return -1;
         else if(this.distance==another.distance)

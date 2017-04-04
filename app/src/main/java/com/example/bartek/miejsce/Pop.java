@@ -23,7 +23,6 @@ public class Pop extends Activity {
 
         getWindow().setLayout((int) (width*.8), (int) (height*.6));
     }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // If we've received a touch notification that the user has touched
@@ -32,9 +31,7 @@ public class Pop extends Activity {
             finish();
             return true;
         }
-
         // Delegate everything else to Activity.
         return super.onTouchEvent(event);
     }
-
 }

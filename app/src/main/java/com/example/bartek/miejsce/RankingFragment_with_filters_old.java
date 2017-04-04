@@ -107,7 +107,7 @@ public class RankingFragment_with_filters_old extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.Lista);
         listView.setAdapter(adapter);
 
-        DatabaseReference refPlaces = database.getReference("krakow/places");
+        DatabaseReference refPlaces = database.getReference("city_details/"+Integer.toString(mainActivity.city_id)+"/places");
 
         refPlaces.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -127,7 +127,7 @@ public class RankingFragment_with_filters_old extends Fragment {
                 }
                 //Sort places by distance
                 Collections.sort(places);
-                DatabaseReference refDetails = database.getReference("krakow/details");
+                DatabaseReference refDetails = database.getReference("city_details/"+Integer.toString(mainActivity.city_id)+"/place_details");
                 refDetails.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -243,7 +243,7 @@ public class RankingFragment_with_filters_old extends Fragment {
     private ArrayList<ListItem> getMoreData() {
         final ArrayList<ListItem> lst = new ArrayList<>();
         //get new data
-        DatabaseReference refDetails = database.getReference("krakow/details");
+        DatabaseReference refDetails = database.getReference("city_details/"+Integer.toString(mainActivity.city_id)+"/place_details");
         refDetails.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

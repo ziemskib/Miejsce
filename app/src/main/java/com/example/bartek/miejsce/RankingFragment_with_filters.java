@@ -39,19 +39,19 @@ public class RankingFragment_with_filters extends Fragment {
 
     ImageButton map_button;
     //describes how many elements app should load
-    int loadingStep = 7;
-    private List<ListItem> ListItem_data;
+    ///////////////
+    //private List<ListItem> ListItem_data;
     public Handler mHandler;
     public View ftView;
     public boolean isLoading = false;
+    //private ListItemAdapter adapter;
 
     public MainActivity mainActivity;
     private ListView listView;
-    private ListItemAdapter adapter;
 
-    final List<Place> places = new ArrayList<Place>();
+    //final List<Place> places = new ArrayList<Place>();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    Boolean firstLoaded = false;
+    //Boolean firstLoaded = false;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,8 +72,7 @@ public class RankingFragment_with_filters extends Fragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ftView = li.inflate(R.layout.list_footer_view, null);
         mHandler = new MyHandler();
-        ListItem_data = new ArrayList<>();  //lista z danymi do listy
-
+/*
         LocationResult locationResult = new LocationResult(){
             @Override
             public void gotLocation(Location location){
@@ -84,72 +83,10 @@ public class RankingFragment_with_filters extends Fragment {
         };
         MyLocation myLocation = new MyLocation(context, mainActivity);
         myLocation.getLocation(context, locationResult);
-
-        adapter = new ListItemAdapter(context, R.layout.list_element, ListItem_data);
-
+*/
         listView = (ListView) rootView.findViewById(R.id.Lista);
-        listView.setAdapter(adapter);
-
-        DatabaseReference refPlaces = database.getReference("krakow/places");
-
-        refPlaces.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                mHandler.sendEmptyMessage(0);
-                //Search more data
-                final ArrayList<ListItem> lstResult = new ArrayList<ListItem>();
-                //Send the result to Handle
-                int count = (int) dataSnapshot.getChildrenCount();
-                Place temp;
-                for (int i = 1; i <= count; i++) {
-                    temp = dataSnapshot.child(Integer.toString(i)).getValue(Place.class);
-                    temp.countDistance(mainActivity.userLatitude, mainActivity.userLongitude);
-                    places.add(temp);
-                }
-                //Sort places by distance
-                Collections.sort(places);
-                DatabaseReference refDetails = database.getReference("krakow/details");
-                refDetails.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Download rest data for first x places
-                        //isLoading = true;
-                        if (loadingStep > places.size())
-                            loadingStep = places.size();
-                        for (int i = 0; i < loadingStep; i++) {
-                            String newName = dataSnapshot.child(Integer.toString(places.get(i).getId())).child("name").getValue(String.class);
-                            places.get(i).setName(newName);
-                            places.get(i).setBackgroundImage(dataSnapshot.child(Integer.toString(places.get(i).getId())).child("backgroundImage").getValue(String.class));
-                            String distString;
-                            distString = "";
-                            Double dist = places.get(i).getDistance();
-                            if(dist!=-1){
-                                if(dist >= 1)
-                                {
-                                    distString = Integer.toString(dist.intValue()) + " km";
-                                }
-                                else if(dist<1){
-                                    dist = dist*1000;
-                                    distString = Integer.toString(dist.intValue()) + " m";
-                                }
-                            }
-                            lstResult.add(new ListItem(R.drawable.kat1_button_normal, places.get(i).getName(), distString, places.get(i).getBackgroundImage()));
-                        }
-                        Message msg = mHandler.obtainMessage(1, lstResult);
-                        mHandler.sendMessage(msg);
-                        firstLoaded = true;
-                        mainActivity.removeLoadingScreen();
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        //listView.setAdapter(adapter);
+        listView.setAdapter(mainActivity.adapter);
         //during scrolling
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -159,7 +96,7 @@ public class RankingFragment_with_filters extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 //check when scroll to last item in listview
-                if (view.getLastVisiblePosition() == totalItemCount - 1 && !isLoading && firstLoaded) {
+                if (view.getLastVisiblePosition() == totalItemCount - 1 && !isLoading && mainActivity.firstLoaded) {
                     isLoading = true;
                     Thread thread = new ThreadGetMoreData();
                     //start thread
@@ -190,7 +127,7 @@ public class RankingFragment_with_filters extends Fragment {
                     break;
                 case 1:
                     //Update data adapter and UI
-                    adapter.addListItemToAdapter((ArrayList<ListItem>) msg.obj);
+                    mainActivity.adapter.addListItemToAdapter((ArrayList<ListItem>) msg.obj);
                     //Remove loading view after update listview
                     listView.removeFooterView(ftView);
                    // isLoading = false;
@@ -203,22 +140,22 @@ public class RankingFragment_with_filters extends Fragment {
     private ArrayList<ListItem> getMoreData() {
         final ArrayList<ListItem> lst = new ArrayList<>();
         //get new data
-        DatabaseReference refDetails = database.getReference("krakow/details");
+        DatabaseReference refDetails = database.getReference("city_details/"+Integer.toString(mainActivity.city_id)+"/place_details");
         refDetails.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Download rest data for next x places
-                Log.d("Powtarzanie", Integer.toString(ListItem_data.size()));
-                int max = ListItem_data.size()+loadingStep;
-                if (max > places.size())
-                    max = places.size();
-                for (int i = ListItem_data.size(); i < max; i++) {
-                    String newName = dataSnapshot.child(Integer.toString(places.get(i).getId())).child("name").getValue(String.class);
-                    places.get(i).setName(newName);
-                    places.get(i).setBackgroundImage(dataSnapshot.child(Integer.toString(places.get(i).getId())).child("backgroundImage").getValue(String.class));
+                Log.d("Powtarzanie", Integer.toString(mainActivity.ListItem_data.size()));
+                int max = mainActivity.ListItem_data.size()+mainActivity.loadingStep;
+                if (max > mainActivity.places.size())
+                    max = mainActivity.places.size();
+                for (int i = mainActivity.ListItem_data.size(); i < max; i++) {
+                    String newName = dataSnapshot.child(Integer.toString(mainActivity.places.get(i).getId())).child("name").getValue(String.class);
+                    mainActivity.places.get(i).setName(newName);
+                    mainActivity.places.get(i).setBackgroundImage(dataSnapshot.child(Integer.toString(mainActivity.places.get(i).getId())).child("backgroundImage").getValue(String.class));
                     String distString;
                     distString = "";
-                    Double dist = places.get(i).getDistance();
+                    Double dist = mainActivity.places.get(i).getDistance();
                     if(dist!=-1){
                         if(dist >= 1)
                         {
@@ -229,7 +166,7 @@ public class RankingFragment_with_filters extends Fragment {
                             distString = Integer.toString(dist.intValue()) + " m";
                         }
                     }
-                    lst.add(new ListItem(R.drawable.kat1_button_normal, places.get(i).getName(), distString, places.get(i).getBackgroundImage()));
+                    lst.add(new ListItem(R.drawable.kat1_button_normal, mainActivity.places.get(i).getName(), distString, mainActivity.places.get(i).getBackgroundImage()));
                 }
                 Message msg = mHandler.obtainMessage(1, lst);
                 mHandler.sendMessage(msg);

@@ -53,6 +53,12 @@ public class PlaceActivity extends Activity {
             TextView textView = (TextView) findViewById(R.id.place_name);
             textView.setText(place.getName());
         }
+        if(b.containsKey("place")){
+            place=(Place) b.getSerializable("place");
+
+            TextView textView = (TextView) findViewById(R.id.place_name);
+            textView.setText(place.getName());
+        }
         downloadData();
     }
 
@@ -67,7 +73,7 @@ public class PlaceActivity extends Activity {
                 //String newName = dataSnapshot.child(Integer.toString(place.getId())).child("name").getValue(String.class);
                 //place.setName(newName);
                 place.setBackgroundImage(dataSnapshot.child(Integer.toString(place.getId())).child("backgroundImage").getValue(String.class));
-                place.setDescription(dataSnapshot.child(Integer.toString(place.getId())).child("desctiption").getValue(String.class));
+                place.setDescription(dataSnapshot.child(Integer.toString(place.getId())).child("description").getValue(String.class));
                 distString = "";
                 Double dist = place.getDistance();
                   if(dist!=-1) {

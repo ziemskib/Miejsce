@@ -2,6 +2,7 @@ package com.example.bartek.miejsce.app;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.widget.ViewFlipper;
 
 import com.example.bartek.miejsce.R;
 import com.example.bartek.miejsce.app.MainActivity;
+import com.example.bartek.miejsce.model.Place;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -132,6 +134,8 @@ public class MainFragment extends Fragment {
             public void onAnimationStart(Animation animation) {
                 previous.setEnabled(false);
                 next.setEnabled(false);
+
+
             }
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -148,13 +152,16 @@ public class MainFragment extends Fragment {
     //Setting images to viewFlipper
     public void setImages(){
         for(int i=0; i<mainActivity.main_places.size(); i++) {
+            final Place tempPlace = mainActivity.main_places.get(i);
             ImageView imageView1 = new ImageView(context);
-            Picasso.with(context).load(mainActivity.main_places.get(i).getBackgroundImage()).into(imageView1);
+            Picasso.with(context).load(tempPlace.getBackgroundImage()).into(imageView1);
             imageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "Clicked id =" + view.getTag(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, PlaceActivity.class);
+                    intent.putExtra("place", tempPlace);
+                    startActivity(intent);
                 }
             });
             viewFlipper.addView(imageView1);

@@ -1,6 +1,13 @@
 package com.example.bartek.miejsce.model;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Bartek on 16.03.2017.
@@ -15,9 +22,11 @@ public class Place implements Comparable<Place>, Serializable{
     private String backgroundImage;
     private boolean main;
     private String description;
-    //private Boolean[] filtrs;
+    private HashMap<String, Boolean> filters;
 
-    public Place(){}
+    public Place(){
+        this.filters = new HashMap<>();
+    }
 
     public Place(String name, double latitude, double longitude, int id, String backgroundImage, boolean main, String description){
         this.name = name;
@@ -27,6 +36,11 @@ public class Place implements Comparable<Place>, Serializable{
         this.backgroundImage = backgroundImage;
         this.main = main;
         this.description = description;
+        this.filters = new HashMap<>();
+    }
+    public void addFilter(String filterName, Boolean value){
+        Log.d("Add filter", filterName+ " " + Boolean.toString(value));
+        filters.put(filterName, value);
     }
     public Place(String name, double latitude, double longitude, int id, String backgroundImage, boolean main){
         this.name = name;

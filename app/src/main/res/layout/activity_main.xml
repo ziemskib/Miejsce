@@ -16,7 +16,7 @@
         android:scaleType="centerCrop"
         />
 
-    <com.example.bartek.miejsce.CustomViewPager
+    <com.example.bartek.miejsce.model.CustomViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"

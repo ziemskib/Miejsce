@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,7 +140,7 @@ public class ListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     //Przyciemnić klikniętą kartę
-                    Toast.makeText(getActivity(), "Clicked id =" + Integer.toString(id), Toast.LENGTH_SHORT).show();
+                    //Przekazywać cały obiekt Place
                     Intent intent = new Intent(getContext(), PlaceActivity.class);
                     intent.putExtra("placeId", id);
                     intent.putExtra("cityId", mainActivity.city_id);

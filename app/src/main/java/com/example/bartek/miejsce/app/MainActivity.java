@@ -13,14 +13,15 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.*;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bartek.miejsce.*;
-import com.example.bartek.miejsce.adapter.ListItemAdapter;
 import com.example.bartek.miejsce.model.City;
+import com.example.bartek.miejsce.model.CustomViewPager;
 import com.example.bartek.miejsce.model.ListItem;
 import com.example.bartek.miejsce.model.MyLocation;
 import com.example.bartek.miejsce.model.Place;
@@ -52,15 +53,14 @@ public class MainActivity extends FragmentActivity{
     double userLongitude = -1.0;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final List<String> filters = new ArrayList<>(); //List of all filters
     final List<City> cities = new ArrayList<>();    //List of all available cities
     final List<Place> places = new ArrayList<>(); //List of all places in current city
     List<Place> main_places = new ArrayList<>();    //Contains places to display on main_page
     boolean firstLoaded = false;    //Defines if first data has been loaded
-    public List<ListItem> ListItem_data; //List of Ranking List Items
-    public ListItemAdapter adapter; //Ranking List Adapter
     int loadingStep = 4;    //Determines how many list items should be loaded each time during scrolling
 
-    private RankingFragment_with_filters m1stFragment; //First Fragment  - Menu (later)
+    private MainFragment m1stFragment; //First Fragment  - Menu (later)
     private MainFragment mainFragment;  //Second Fragment  - Main Screen
     private ListFragment listFragment;  //Third Fragment - Ranking List
     private MapViewFragment mapFragment;   //Fourth Fragment - Map Fragment
@@ -94,8 +94,27 @@ public class MainActivity extends FragmentActivity{
             MyLocation myLocation = new MyLocation(this, this);
             myLocation.getLocation(this, locationResult);
 
-            ListItem_data = new ArrayList<>();
-            adapter = new ListItemAdapter(this, R.layout.list_element, ListItem_data);
+
+            //Mozliwe ze trzeba przeniesc wewnatrz pobierania cities
+            //Getting list of filters
+            DatabaseReference refFilters = database.getReference("filters");
+            refFilters.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    Log.d("Filtry", Integer.toString(count));
+                    String temp;
+                    for (int i = 1; i <= count; i++) {
+                        temp = dataSnapshot.child(Integer.toString(i)).getValue(String.class);
+                        filters.add(temp);
+                        Log.d("Filtry", filters.get(i-1));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
             //Finding nearest city
             DatabaseReference refCities = database.getReference("cities");
@@ -125,6 +144,14 @@ public class MainActivity extends FragmentActivity{
                             for (int i = 1; i <= count; i++) {
                                 temp = dataSnapshot.child(Integer.toString(i)).getValue(Place.class);
                                 temp.countDistance(userLatitude, userLongitude);
+                                Boolean filterTemp;
+                                //Pobrac filtry do mapy w miejscu
+                                for(int j = 0; j < filters.size(); j++){
+                                    filterTemp=dataSnapshot.child(Integer.toString(i)).child(filters.get(j)).getValue(Boolean.class);
+                                    Log.d("Filter", Boolean.toString(filterTemp));
+                                    Log.d("Filter", filters.get(j));
+                                    temp.addFilter(filters.get(j), filterTemp);
+                                }
                                 places.add(temp);
                                 if(temp.getMain()){
                                     main_places.add(temp);
@@ -159,7 +186,6 @@ public class MainActivity extends FragmentActivity{
                                         }
                                         lstResult.add(new ListItem(places.get(i).getId(), places.get(i).getDistance(),R.drawable.kat1_button_normal, places.get(i).getName(), distString, places.get(i).getBackgroundImage(), 1, 0));
                                     }
-                                    adapter.addListItemToAdapter(lstResult);
 
                                     //Download images to display in main screen
                                     for(int i=0; i<main_places.size(); i++) {
@@ -237,7 +263,7 @@ public class MainActivity extends FragmentActivity{
         public Fragment getItem(int position){
             switch(position){
                 case 0:
-                    return new RankingFragment_with_filters(); //old list right now, menu in the future
+                    return new MainFragment(); //menu in the future
                 case 1:
                     return new MainFragment(); //main screen
                 case 2:
@@ -259,7 +285,7 @@ public class MainActivity extends FragmentActivity{
             // save the appropriate reference depending on position
             switch (position) {
                 case 0:
-                    m1stFragment = (RankingFragment_with_filters) createdFragment;
+                    m1stFragment = (MainFragment) createdFragment;
                     break;
                 case 1:
                     mainFragment = (MainFragment) createdFragment;

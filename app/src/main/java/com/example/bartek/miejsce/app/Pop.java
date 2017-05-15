@@ -1,9 +1,11 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.app;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
+
+import com.example.bartek.miejsce.R;
 
 /**
  * Created by Bartosz Ziemski on 28/03/2017.

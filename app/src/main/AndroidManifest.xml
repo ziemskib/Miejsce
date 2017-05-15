@@ -18,18 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pop"
+        <activity android:name=".app.Pop"
             android:theme="@style/AppTheme.FiltrWindowTheme"></activity>
-        <activity android:name=".MapActivity"></activity>
-        <activity android:name=".InternetSettings"
+        <activity android:name=".app.MapActivity"></activity>
+        <activity android:name=".app.InternetSettings"
             android:theme="@style/AppTheme.InternetSettingsTheme"></activity>
+        <activity android:name=".app.PlaceActivity"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>

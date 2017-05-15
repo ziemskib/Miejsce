@@ -1,4 +1,4 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.model;
 
 /**
  * Created by Bartek on 16.03.2017.
@@ -60,10 +60,10 @@ public class City implements Comparable<City>{
     @Override
     public int compareTo(City another) {
         if(this.distance<another.distance)
-            return -1;
+            return 1;
         else if(this.distance==another.distance)
             return 0;
         else
-            return 1;
+            return -1;
     }
 }

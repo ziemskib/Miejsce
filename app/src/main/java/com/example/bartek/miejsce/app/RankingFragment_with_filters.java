@@ -1,13 +1,11 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,8 @@ import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.bartek.miejsce.MyLocation.LocationResult;
+import com.example.bartek.miejsce.model.ListItem;
+import com.example.bartek.miejsce.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by Bartek on 29.07.2016.
@@ -34,19 +31,15 @@ import java.util.List;
 //List of places screen Fragment
 public class RankingFragment_with_filters extends Fragment {
 
-    private FragmentActivity fa;
+    public MainActivity mainActivity;
+
     Context context;
 
     ImageButton map_button;
-    //describes how many elements app should load
-    ///////////////
-    //private List<ListItem> ListItem_data;
     public Handler mHandler;
     public View ftView;
     public boolean isLoading = false;
-    //private ListItemAdapter adapter;
 
-    public MainActivity mainActivity;
     private ListView listView;
 
     //final List<Place> places = new ArrayList<Place>();
@@ -55,7 +48,6 @@ public class RankingFragment_with_filters extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fa = super.getActivity();
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.list, container, false);
         context = container.getContext();
         mainActivity = (MainActivity) getActivity();
@@ -66,28 +58,18 @@ public class RankingFragment_with_filters extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapActivity.class);
                 startActivity(intent);
+                //mainActivity.mPager.setCurrentItem(mainActivity.mPager.getCurrentItem()+1);
             }
         });
 
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ftView = li.inflate(R.layout.list_footer_view, null);
         mHandler = new MyHandler();
-/*
-        LocationResult locationResult = new LocationResult(){
-            @Override
-            public void gotLocation(Location location){
-                //Got the location!
-                mainActivity.userLatitude = location.getLatitude();
-                mainActivity.userLongitude = location.getLongitude();
-                }
-        };
-        MyLocation myLocation = new MyLocation(context, mainActivity);
-        myLocation.getLocation(context, locationResult);
-*/
+
         listView = (ListView) rootView.findViewById(R.id.Lista);
         //listView.setAdapter(adapter);
         listView.setAdapter(mainActivity.adapter);
-        //during scrolling
+        //During scrolling
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -166,7 +148,7 @@ public class RankingFragment_with_filters extends Fragment {
                             distString = Integer.toString(dist.intValue()) + " m";
                         }
                     }
-                    lst.add(new ListItem(R.drawable.kat1_button_normal, mainActivity.places.get(i).getName(), distString, mainActivity.places.get(i).getBackgroundImage()));
+                    lst.add(new ListItem(mainActivity.places.get(i).getId(), mainActivity.places.get(i).getDistance(), R.drawable.kat1_button_normal, mainActivity.places.get(i).getName(), distString, mainActivity.places.get(i).getBackgroundImage(), 0, 0));
                 }
                 Message msg = mHandler.obtainMessage(1, lst);
                 mHandler.sendMessage(msg);

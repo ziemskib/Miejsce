@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".app.MainActivity"
     android:name="com.example.miejsce.RankingFragment2">
 
 
@@ -50,7 +50,7 @@
         android:layout_centerHorizontal="true" >
     </ListView>
 
-    <com.example.bartek.miejsce.Transparent
+    <com.example.bartek.miejsce.Delete_Transparent
         android:id="@+id/popup_window"
         android:layout_marginTop="50dp"
         android:orientation="vertical"
@@ -96,6 +96,6 @@
             android:layout_height="wrap_content"
             android:textSize="17dp"
             android:text="Kategoria 4" />
-    </com.example.bartek.miejsce.Transparent>
+    </com.example.bartek.miejsce.Delete_Transparent>
 
 </RelativeLayout>

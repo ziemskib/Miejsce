@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.MainActivity"
-    android:name="com.example.miejsce.RankingFragment">
-
+    tools:context="com.example.bartek.miejsce.app.MapViewFragment">
     <ImageButton
-        android:src="@drawable/filtr_button"
-        android:id="@+id/filtr_button"
+        android:src="@drawable/left_arrow_button"
+        android:id="@+id/map_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -24,8 +22,7 @@
 
 
     <ImageButton
-        android:src="@drawable/map_button"
-        android:id="@+id/map_button"
+        android:id="@+id/map_button_sth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -37,15 +34,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"/>
-
-    <ListView
-        android:id="@+id/Lista"
+        <!-- android:src="@drawable/filtr_button"-->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
         android:layout_marginTop="50dp"
-        android:background="#FFF"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" >
-    </ListView>
+        android:layout_height="match_parent"
+        />
 
 </RelativeLayout>

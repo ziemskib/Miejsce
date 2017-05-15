@@ -1,4 +1,4 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.app;
 
 //main activity -> obsluguje przesuwanie glownych ekranow
 
@@ -7,33 +7,28 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Message;
-import android.provider.Settings;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.*;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
+import com.example.bartek.miejsce.*;
+import com.example.bartek.miejsce.adapter.ListItemAdapter;
+import com.example.bartek.miejsce.model.City;
+import com.example.bartek.miejsce.model.ListItem;
+import com.example.bartek.miejsce.model.MyLocation;
+import com.example.bartek.miejsce.model.Place;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,34 +42,28 @@ public class MainActivity extends FragmentActivity{
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1000;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1001;
-    //Number of sliding screens
-    private static final int NUM_PAGES = 3;
-    //name of current city
-    public String city=" ";
+    private static final int NUM_PAGES = 4; //Number of sliding screens
+    public String city=" "; //Name of current city
     int city_id = 0;
-    //pager adapter
-    private CustomViewPager mPager;
-    //User location
-    double userLatitude =-1.0;
+    public CustomViewPager mPager;  //Viewpager
+    private PagerAdapter mPagerAdapter;//The pager adapter, which provides the pages to the view pager widget.
+
+    double userLatitude =-1.0;  //User location
     double userLongitude = -1.0;
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
-    private PagerAdapter mPagerAdapter;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final List<City> cities = new ArrayList<>();
-    final List<Place> places = new ArrayList<>();
+    final List<City> cities = new ArrayList<>();    //List of all available cities
+    final List<Place> places = new ArrayList<>(); //List of all places in current city
     List<Place> main_places = new ArrayList<>();    //Contains places to display on main_page
-    private ViewFlipper viewFlipper;
-    boolean firstLoaded = false;
-    public List<ListItem> ListItem_data;        //add get set
-    public ListItemAdapter adapter;
-    int loadingStep = 7;
+    boolean firstLoaded = false;    //Defines if first data has been loaded
+    public List<ListItem> ListItem_data; //List of Ranking List Items
+    public ListItemAdapter adapter; //Ranking List Adapter
+    int loadingStep = 4;    //Determines how many list items should be loaded each time during scrolling
 
-    private RankingFragment_with_filters_old m1stFragment;
-    private MainFragment mainFragment;
-    private RankingFragment_with_filters m3rdFragment;
+    private RankingFragment_with_filters m1stFragment; //First Fragment  - Menu (later)
+    private MainFragment mainFragment;  //Second Fragment  - Main Screen
+    private ListFragment listFragment;  //Third Fragment - Ranking List
+    private MapViewFragment mapFragment;   //Fourth Fragment - Map Fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +77,7 @@ public class MainActivity extends FragmentActivity{
         mPager.setCurrentItem(1);
         //Switch off paging for loading data
         mPager.setPagingEnabled(false);
+        mPager.setOffscreenPageLimit(3);
 
         setLoadingScreen();
         //Instantiate a ViewPager and a PagerAdapter
@@ -96,13 +86,16 @@ public class MainActivity extends FragmentActivity{
             MyLocation.LocationResult locationResult = new MyLocation.LocationResult(){
                 @Override
                 public void gotLocation(Location location){
-                    //Got the location!
+                    //Got the location
                     userLatitude = location.getLatitude();
                     userLongitude = location.getLongitude();
                 }
             };
             MyLocation myLocation = new MyLocation(this, this);
             myLocation.getLocation(this, locationResult);
+
+            ListItem_data = new ArrayList<>();
+            adapter = new ListItemAdapter(this, R.layout.list_element, ListItem_data);
 
             //Finding nearest city
             DatabaseReference refCities = database.getReference("cities");
@@ -145,7 +138,6 @@ public class MainActivity extends FragmentActivity{
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     //Download rest data for first x places for list of places
-                                    //isLoading = true;
                                     if (loadingStep > places.size())
                                         loadingStep = places.size();
                                     for (int i = 0; i < loadingStep; i++) {
@@ -165,21 +157,27 @@ public class MainActivity extends FragmentActivity{
                                                 distString = Integer.toString(dist.intValue()) + " m";
                                             }
                                         }
-                                        lstResult.add(new ListItem(R.drawable.kat1_button_normal, places.get(i).getName(), distString, places.get(i).getBackgroundImage()));
+                                        lstResult.add(new ListItem(places.get(i).getId(), places.get(i).getDistance(),R.drawable.kat1_button_normal, places.get(i).getName(), distString, places.get(i).getBackgroundImage(), 1, 0));
                                     }
-                                    adapter.addListItemToAdapter((ArrayList<ListItem>) lstResult);
+                                    adapter.addListItemToAdapter(lstResult);
 
                                     //Download images to display in main screen
                                     for(int i=0; i<main_places.size(); i++) {
-                                        //Change for different image!!!!
                                         main_places.get(i).setBackgroundImage(dataSnapshot.child(Integer.toString(main_places.get(i).getId())).child("backgroundImage").getValue(String.class));
-                                        //Send these data to mainFragment ViewFlipper
                                     }
-                                    removeLoadingScreen();
-                                    firstLoaded = true;
+                                    //Setting images in ViewFlipper on Main Page
                                     if (mainFragment != null) {
                                         mainFragment.setImages();
                                     }
+                                    //Setting list in listFragment
+                                    if (listFragment != null){
+                                        listFragment.createList(lstResult);
+                                    }
+                                    if (mapFragment!=null){
+                                        mapFragment.setMarkers();
+                                    }
+                                    removeLoadingScreen();
+                                    firstLoaded = true;
                                 }
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
@@ -195,8 +193,6 @@ public class MainActivity extends FragmentActivity{
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
-            ListItem_data = new ArrayList<>();  //lista z danymi do listy
-            adapter = new ListItemAdapter(this, R.layout.list_element, ListItem_data);
 
         }
         else{
@@ -205,6 +201,12 @@ public class MainActivity extends FragmentActivity{
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(listFragment!=null)
+            listFragment.resume();
+    }
     //Back button action
     @Override
     public void onBackPressed(){
@@ -235,22 +237,21 @@ public class MainActivity extends FragmentActivity{
         public Fragment getItem(int position){
             switch(position){
                 case 0:
-                    return new RankingFragment_with_filters_old(); //menu???
+                    return new RankingFragment_with_filters(); //old list right now, menu in the future
                 case 1:
                     return new MainFragment(); //main screen
                 case 2:
-                    return new RankingFragment_with_filters(); //ranking/location list
+                    return new ListFragment(); //ranking/location list
+                case 3:
+                    return new MapViewFragment(); //map
                 default:
                     return null;
             }
-           /* if(position==0) return new RankingFragment_with_filters_old();   //ranking po lewej
-            else if (position==1)  return new MainFragment();      //MainFragment jako startowy
-            else return new RankingFragment_with_filters();  //do ustawienia*/
         }
         @Override
         public int getCount(){
             return NUM_PAGES;
-        }   //zwraca ilosc ekranow
+        }   //returns number of pages
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
@@ -258,13 +259,16 @@ public class MainActivity extends FragmentActivity{
             // save the appropriate reference depending on position
             switch (position) {
                 case 0:
-                    m1stFragment = (RankingFragment_with_filters_old) createdFragment;
+                    m1stFragment = (RankingFragment_with_filters) createdFragment;
                     break;
                 case 1:
                     mainFragment = (MainFragment) createdFragment;
                     break;
                 case 2:
-                    m3rdFragment = (RankingFragment_with_filters) createdFragment;
+                    listFragment = (ListFragment) createdFragment;
+                    break;
+                case 3:
+                    mapFragment = (MapViewFragment) createdFragment;
                     break;
             }
             return createdFragment;

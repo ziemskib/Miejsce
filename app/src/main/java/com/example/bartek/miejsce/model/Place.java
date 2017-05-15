@@ -1,10 +1,12 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.model;
+
+import java.io.Serializable;
 
 /**
  * Created by Bartek on 16.03.2017.
  */
 
-public class Place implements Comparable<Place>{
+public class Place implements Comparable<Place>, Serializable{
     private String name;
     private double latitude;
     private double longitude;
@@ -12,9 +14,20 @@ public class Place implements Comparable<Place>{
     private int id;
     private String backgroundImage;
     private boolean main;
+    private String description;
+    //private Boolean[] filtrs;
 
     public Place(){}
 
+    public Place(String name, double latitude, double longitude, int id, String backgroundImage, boolean main, String description){
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.id = id;
+        this.backgroundImage = backgroundImage;
+        this.main = main;
+        this.description = description;
+    }
     public Place(String name, double latitude, double longitude, int id, String backgroundImage, boolean main){
         this.name = name;
         this.latitude = latitude;
@@ -22,8 +35,8 @@ public class Place implements Comparable<Place>{
         this.id = id;
         this.backgroundImage = backgroundImage;
         this.main = main;
+        this.description = " ";
     }
-
     public void setName(String newName){
         if(newName.equals(""))
             name="";
@@ -41,12 +54,15 @@ public class Place implements Comparable<Place>{
     public double getLatitude(){return latitude;}
    // public void setLongitude(double newLongitude){longitude = newLongitude;}
     public double getLongitude(){return longitude;}
-   // public void setId(int newId){id = newId;}
+    public void setId(int newId){id = newId;}
     public int getId(){return id;}
-    //public void setDistance(double newDistance){distance = newDistance;}
+    public void setDistance(double newDistance){distance = newDistance;}
     public double getDistance(){return distance;}
     public void setBackgroundImage(String newBackgroundImage){backgroundImage = newBackgroundImage;}
     public String getBackgroundImage(){return backgroundImage;}
+    public String getDescription(){return description;}
+    public void setDescription(String newDescription){description = newDescription;}
+
     public boolean getMain(){return main;}
     /*public void countDistance(double user_latitude, double user_longitude) {
         double a = Math.abs(user_latitude-latitude);

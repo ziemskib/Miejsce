@@ -1,4 +1,4 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.app;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.bartek.miejsce.R;
 
 /**
  * Created by Bartosz Ziemski on 01/04/2017.
@@ -33,7 +35,7 @@ public class InternetSettings extends Activity {
         internetSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                //On filtr button click
+                //On Internet settings button click
                 startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
             }
         });
@@ -46,7 +48,7 @@ public class InternetSettings extends Activity {
             finish();
             return true;
         }
-        // Delegate everything else to Activity.
+        //Delegate everything else to Activity.
         return super.onTouchEvent(event);
     }
     //Close app on back button pressed

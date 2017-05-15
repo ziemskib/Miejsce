@@ -1,4 +1,4 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.app;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.bartek.miejsce.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -40,8 +41,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         LocationListener{
 
     private GoogleMap mMap;
-    //double userLatitude =-1.0;
-    //double userLongitude = -1.0;
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;

@@ -1,4 +1,4 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.model;
 
 import android.*;
 import android.app.Activity;
@@ -40,7 +40,7 @@ public class MyLocation {
         if (lm == null)
             lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-        //exceptions will be thrown if provider is not permitted.
+        //Exceptions will be thrown if provider is not permitted.
         try {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (Exception ex) {
@@ -50,7 +50,7 @@ public class MyLocation {
         } catch (Exception ex) {
         }
 
-        //don't start listeners if no provider is enabled
+        //Don't start listeners if no provider is enabled
         if (!gps_enabled && !network_enabled)
             return false;
 
@@ -127,7 +127,7 @@ public class MyLocation {
             if(network_enabled)
                 net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            //if there are both values use the latest one
+            //If there are both values use the latest one
             if(gps_loc!=null && net_loc!=null){
                 if(gps_loc.getTime()>net_loc.getTime())
                     locationResult.gotLocation(gps_loc);

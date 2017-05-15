@@ -1,4 +1,4 @@
-package com.example.bartek.miejsce;
+package com.example.bartek.miejsce.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.bartek.miejsce.R;
+import com.example.bartek.miejsce.model.ListItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

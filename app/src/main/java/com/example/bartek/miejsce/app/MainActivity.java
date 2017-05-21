@@ -53,7 +53,7 @@ public class MainActivity extends FragmentActivity{
     double userLongitude = -1.0;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final List<String> filters = new ArrayList<>(); //List of all filters
+    final ArrayList<String> filters = new ArrayList<>(); //List of all filters
     final List<City> cities = new ArrayList<>();    //List of all available cities
     final List<Place> places = new ArrayList<>(); //List of all places in current city
     List<Place> main_places = new ArrayList<>();    //Contains places to display on main_page

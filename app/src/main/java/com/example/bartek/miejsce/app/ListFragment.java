@@ -64,7 +64,9 @@ public class ListFragment extends Fragment {
         filtrButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(getContext(),Pop.class));
+                Intent intent = new Intent(getContext(), Pop.class);
+                intent.putStringArrayListExtra("filters", mainActivity.filters);
+                startActivity(intent);
             }
         });
         mRecyclerView = (RecyclerView) view.findViewById(R.id.cardView);
@@ -146,7 +148,9 @@ public class ListFragment extends Fragment {
                     intent.putExtra("cityId", mainActivity.city_id);
                     intent.putExtra("distance", distance);
                     intent.putExtra("placeName", placeName.getText().toString());
+                    clearAll();
                     startActivity(intent);
+
                 }
             });
 
@@ -276,6 +280,15 @@ public class ListFragment extends Fragment {
         mUserAdapter.setLoaded();
     }
 
+    public void clearAll() {
+        listItems.remove(1);
+        mRecyclerView.removeViewAt(1);
+        mUserAdapter.notifyItemRemoved(1);
+        mUserAdapter.notifyItemRangeChanged(1, listItems.size());
+        mUserAdapter.notifyDataSetChanged();
+
+
+    }
     public void resume(){
         mUserAdapter.notifyDataSetChanged();
         mUserAdapter.setLoaded();

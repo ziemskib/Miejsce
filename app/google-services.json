@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "879460863617",
+    "firebase_url": "https://miejsce-fcc93.firebaseio.com",
+    "project_id": "miejsce-fcc93",
+    "storage_bucket": "miejsce-fcc93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879460863617:android:f5b3a1a82e5a0156",
+        "android_client_info": {
+          "package_name": "com.example.bartek.miejsce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879460863617-uuoimuosgoh6mn8knfurufqs06oqvr28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bartek.miejsce",
+            "certificate_hash": "c9846a933412472c3f82ea752dad0547c05de0e2"
+          }
+        },
+        {
+          "client_id": "879460863617-gqcnqnmle8qpndmian0tppf8j7ur5dgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvSz0vQH_tQ0PEgZdD9wN-niGnlvQCCOA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879460863617-gqcnqnmle8qpndmian0tppf8j7ur5dgi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

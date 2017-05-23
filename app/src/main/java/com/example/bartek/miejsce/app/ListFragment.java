@@ -214,7 +214,6 @@ public class ListFragment extends Fragment {
                 userViewHolder.placeName.setText(tempPlace.title);
                 userViewHolder.distanceTextView.setText(tempPlace.distance);
                 Picasso.with(getContext()).load(tempPlace.backgroungImageURL).into(userViewHolder.coverImageView);
-                // userViewHolder.coverImageView.setTag(list.get(position).getImageResourceId());
                 if(tempPlace.isfav==1){
                     userViewHolder.likeImageView.setImageResource(R.drawable.ic_liked);
                     userViewHolder.likeImageView.setTag(R.drawable.ic_liked);
@@ -292,6 +291,5 @@ public class ListFragment extends Fragment {
     public void resume(){
         mUserAdapter.notifyDataSetChanged();
         mUserAdapter.setLoaded();
-        //listItems.add(null);
     }
 }

@@ -55,10 +55,8 @@ public class FiltrListAdapter extends BaseAdapter {
 
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView subtitleView = (TextView) view.findViewById(R.id.subTitle);
-        ImageView iconView = (ImageView) view.findViewById(R.id.imgIcon);
 
         titleView.setText(mNavItems.get(i).mTitle);
-        //iconView.setImageResource(mNavItems.get(i).mIcon);
         subtitleView.setText(mNavItems.get(i).mSubtitle);
 
         return view;

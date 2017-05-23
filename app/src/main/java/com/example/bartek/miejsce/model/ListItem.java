@@ -14,7 +14,6 @@ public class ListItem {
     public String distance;
     public String backgroungImageURL;
 
-    //int imageResourceId;
     public int isfav;
     public int isturned;
 
@@ -44,9 +43,5 @@ public class ListItem {
     public void setIsfav(int isfav) {
         this.isfav = isfav;
     }
-
-    //public int getImageResourceId() {return imageResourceId;}
-
-    //public void setImageResourceId(int imageResourceId) {this.imageResourceId = imageResourceId;}
 
 }

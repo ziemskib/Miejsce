@@ -5,7 +5,7 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:background="@android:color/transparent">
-        <ImageView android:id="@+id/icon"
+        <ImageView android:id="@+id/imgIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/kat1_button"
@@ -23,14 +23,14 @@
             android:text="Line 1"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/icon"
-            android:layout_toEndOf="@+id/icon"/>
+            android:layout_toRightOf="@+id/imgIcon"
+            android:layout_toEndOf="@+id/imgIcon"/>
         <TextView
             android:id="@+id/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Line 2"
-            android:layout_toRightOf="@+id/icon"
+            android:layout_toRightOf="@+id/imgIcon"
             android:layout_below="@+id/title"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>

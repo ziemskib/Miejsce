@@ -75,10 +75,6 @@ public class MapViewFragment extends Fragment implements GoogleApiClient.Connect
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
                 setUpMap();
-                //CameraPosition cameraPosition = new CameraPosition.Builder().target(John).zoom(12).build();
-
-                //For zooming automatically to the location of the marker
-                //mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
@@ -151,15 +147,8 @@ public class MapViewFragment extends Fragment implements GoogleApiClient.Connect
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        //remove previous current location Marker
-        /*if (marker != null){
-            marker.remove();
-        }*/
         double dLatitude = mLastLocation.getLatitude();
         double dLongitude = mLastLocation.getLongitude();
-        //marker = mMap.addMarker(new MarkerOptions().position(new LatLng(dLatitude, dLongitude))
-        //        .title("My Location").icon(BitmapDescriptorFactory
-        //                .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         //Zoom camera only once
         if(!changed)
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(dLatitude, dLongitude), 14));
@@ -174,7 +163,6 @@ public class MapViewFragment extends Fragment implements GoogleApiClient.Connect
                 .build();
     }
     public void setUpMap() {
-        //mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if (ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             Log.d("Maps", "Nie udalo sie");

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Bartosz Ziemski on 28/03/2017.
+ * Filters
  */
 
 public class Pop extends Activity {

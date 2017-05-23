@@ -62,10 +62,6 @@
         android:background="@android:color/transparent"
         android:textColor="#ffffff" />
 
-
-
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,10 +75,8 @@
             android:layout_width="match_parent"
             android:orientation="horizontal">
 
-
-            <!-- 1. cattegory button -->
+            <!-- 1. Cattegory button -->
             <ImageButton
-
                 android:src="@drawable/kat1_button"
                 android:id="@+id/kat1"
                 android:layout_width="0dp"
@@ -90,7 +84,7 @@
                 android:layout_weight="0.5"
                 android:background="@android:color/transparent"/>
 
-            <!-- 2. cattegory button -->
+            <!-- 2. Cattegory button -->
             <ImageButton
                 android:src="@drawable/kat1_button"
                 android:id="@+id/kat2"
@@ -98,8 +92,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:background="@android:color/transparent"/>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -108,9 +100,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal">
 
-
-
-            <!-- 3. cattegory button -->
+            <!-- 3. Cattegory button -->
             <ImageButton
                 android:src="@drawable/kat1_button"
                 android:id="@+id/kat3"
@@ -119,7 +109,7 @@
                 android:layout_weight="0.5"
                 android:background="@android:color/transparent"/>
 
-            <!-- 4. cattegory button -->
+            <!-- 4. Cattegory button -->
             <ImageButton
                 android:src="@drawable/kat1_button"
                 android:id="@+id/kat4"

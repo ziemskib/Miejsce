@@ -1,7 +1,5 @@
 package com.example.bartek.miejsce.app;
 
-//main activity -> obsluguje przesuwanie glownych ekranow
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -73,7 +71,7 @@ public class MainActivity extends FragmentActivity{
         mPager = (CustomViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        //Set start screen on aplication start
+        //Set start screen on application start
         mPager.setCurrentItem(1);
         //Switch off paging for loading data
         mPager.setPagingEnabled(false);
@@ -94,8 +92,6 @@ public class MainActivity extends FragmentActivity{
             MyLocation myLocation = new MyLocation(this, this);
             myLocation.getLocation(this, locationResult);
 
-
-            //Mozliwe ze trzeba przeniesc wewnatrz pobierania cities
             //Getting list of filters
             DatabaseReference refFilters = database.getReference("filters");
             refFilters.addListenerForSingleValueEvent(new ValueEventListener() {

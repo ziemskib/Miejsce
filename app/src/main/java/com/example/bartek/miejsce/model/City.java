@@ -33,13 +33,9 @@ public class City implements Comparable<City>{
         else
             return name;
     }
-    //public void setLatitude(double newLatitude){latitude = newLatitude;}
     public double getLatitude(){return latitude;}
-   // public void setLongitude(double newLongitude){longitude = newLongitude;}
     public double getLongitude(){return longitude;}
-   // public void setId(int newId){id = newId;}
     public int getId(){return id;}
-    //public void setDistance(double newDistance){distance = newDistance;}
     public double getDistance(){return distance;}
     public void countDistance(double user_latitude, double user_longitude) {
         if(user_latitude==-1.0 || user_longitude==-1.0){

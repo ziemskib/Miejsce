@@ -27,7 +27,6 @@
         </activity>
         <activity android:name=".app.Pop"
             android:theme="@style/AppTheme.FiltrWindowTheme"></activity>
-        <activity android:name=".app.MapActivity"></activity>
         <activity android:name=".app.InternetSettings"
             android:theme="@style/AppTheme.InternetSettingsTheme"></activity>
         <activity android:name=".app.PlaceActivity"></activity>

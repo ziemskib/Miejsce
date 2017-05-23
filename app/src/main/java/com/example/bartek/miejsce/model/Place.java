@@ -64,9 +64,7 @@ public class Place implements Comparable<Place>, Serializable{
         else
             return name;
     }
-    //public void setLatitude(double newLatitude){latitude = newLatitude;}
     public double getLatitude(){return latitude;}
-   // public void setLongitude(double newLongitude){longitude = newLongitude;}
     public double getLongitude(){return longitude;}
     public void setId(int newId){id = newId;}
     public int getId(){return id;}
@@ -78,23 +76,8 @@ public class Place implements Comparable<Place>, Serializable{
     public void setDescription(String newDescription){description = newDescription;}
 
     public boolean getMain(){return main;}
-    /*public void countDistance(double user_latitude, double user_longitude) {
-        double a = Math.abs(user_latitude-latitude);
-        double b = Math.abs(user_longitude-longitude);
-        this.distance = Math.sqrt(a*a+b*b)*111.32;
-    }*/
 
-    /**
-     * Calculate distance between two points in latitude and longitude taking
-     * into account height difference. If you are not interested in height
-     * difference pass 0.0. Uses Haversine method as its base.
-     *
-     * lat1, lon1 Start point lat2, lon2 End point el1 Start altitude in meters
-     * el2 End altitude in meters
-     * @returns Distance in Meters
-     * I assume hight equals 0
-     */
-    public void countDistance(double user_latitude, double user_longitude) {
+     public void countDistance(double user_latitude, double user_longitude) {
         if(user_latitude==-1.0 || user_longitude==-1.0){
             distance=-1.0;
             return;

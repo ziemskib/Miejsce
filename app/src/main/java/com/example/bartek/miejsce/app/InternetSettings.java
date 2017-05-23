@@ -63,6 +63,5 @@ public class InternetSettings extends Activity {
         super.onResume();
         if(settings_opened)
             finish();
-        //System.exit(0);
     }
 }

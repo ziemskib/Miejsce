@@ -70,8 +70,6 @@ public class PlaceActivity extends Activity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Download rest data for next x places
                 place.setId(place.getId());
-                //String newName = dataSnapshot.child(Integer.toString(place.getId())).child("name").getValue(String.class);
-                //place.setName(newName);
                 place.setBackgroundImage(dataSnapshot.child(Integer.toString(place.getId())).child("backgroundImage").getValue(String.class));
                 place.setDescription(dataSnapshot.child(Integer.toString(place.getId())).child("description").getValue(String.class));
                 distString = "";
